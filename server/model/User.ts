@@ -1,7 +1,5 @@
-const mongose = require("mongoose");
+import { Document, Model, model, Types, Schema, Query } from "mongoose";
 const bcrypt = require("bcrypt");
-
-const { Schema } = mongose;
 
 const UserSchema = new Schema({
   firstName: {
@@ -11,6 +9,12 @@ const UserSchema = new Schema({
   lastName: {
     type: String,
     required: true,
+  },
+  username: {
+    type: String,
+    unique: true,
+    required: true,
+    lowercase: true,
   },
   email: {
     type: String,
@@ -29,7 +33,16 @@ const UserSchema = new Schema({
   },
 });
 
-UserSchema.pre("save", async function () {
+interface IUserSchema extends Document {
+  firstName: string;
+  lastName: string;
+  username: string;
+  email: string;
+  password: string;
+  isOnline: boolean;
+}
+
+UserSchema.pre<IUserSchema>("save", async function () {
   if (this.isNew || this.isModified("password")) {
     const salt = 12;
     this.password = await bcrypt.hash(this.password, salt);
@@ -39,3 +52,7 @@ UserSchema.pre("save", async function () {
 UserSchema.methods.comparePassword = async function (password: string) {
   return await bcrypt.compare(password, this.password);
 };
+
+export interface IUserModel extends IUserSchema {}
+
+export default model<IUserModel>("User", UserSchema);
