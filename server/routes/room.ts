@@ -1,5 +1,7 @@
-const room = require("express").Router();
+import { Router as router } from "express";
+import { rooms } from "../controllers/rooms";
 
-room.route("/").get(() => "hello from roooms");
+const room = router();
+room.route("/").get(rooms.seeRooms);
 
-module.exports = room;
+export default room;

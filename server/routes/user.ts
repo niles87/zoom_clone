@@ -1,5 +1,7 @@
-const user = require("express").Router();
+import { Router } from "express";
+import { users } from "../controllers/users";
 
-user.route("/").post(() => "hello");
+const user = Router();
+user.route("/signup").post(users.signup);
 
-module.exports = user;
+export default user;
