@@ -1,17 +1,17 @@
-import { Express, Request, Response } from "express";
-const express = require("express");
-const mongoose = require("mongoose");
-const path = require("path");
+import express, { Request, Response } from "express";
+import mongoose from "mongoose";
+import path from "path";
 
-const config = require("./config/db");
-const routes = require("./routes");
+import { config } from "./config/db";
+import routes from "./routes";
+
 const app = express();
 const PORT = process.env.PORT || 4000;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-mongoose.connect(process.env.MONGO_URI || config.database, {
+mongoose.connect(config.database, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,

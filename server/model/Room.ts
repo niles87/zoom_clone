@@ -1,5 +1,4 @@
 import { Document, model, Schema, Types } from "mongoose";
-import User from "./User";
 
 const RoomSchema = new Schema({
   roomOwner: {
@@ -20,4 +19,4 @@ interface IRoomSchema extends Document {
 
 export interface IRoomModel extends IRoomSchema {}
 
-export default model<IRoomSchema>("Room", RoomSchema);
+export default model<IRoomModel>("Room", RoomSchema);
