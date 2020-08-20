@@ -16,7 +16,25 @@ export const users = {
         res.sendStatus(201);
       })
       .catch((err: any) => {
+        console.log(err.message);
         res.sendStatus(404);
+      });
+  },
+  login: function (req: Request, res: Response) {
+    const { email, password } = req.body;
+    User.findOne({ email })
+      .then((user: IUserModel | null) => {
+        if (user) {
+          if (user.comparePassword(password)) {
+            res.json("logged in");
+          }
+        } else {
+          res.sendStatus(404);
+        }
+      })
+      .catch((err: any) => {
+        console.log(err.message);
+        res.sendStatus(500);
       });
   },
 };

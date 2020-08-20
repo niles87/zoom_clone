@@ -49,10 +49,14 @@ UserSchema.pre<IUserSchema>("save", async function () {
   }
 });
 
-UserSchema.methods.comparePassword = async function (password: string) {
+UserSchema.methods.comparePassword = async function (
+  password: string
+): Promise<boolean> {
   return await bcrypt.compare(password, this.password);
 };
 
-export interface IUserModel extends IUserSchema {}
+export interface IUserModel extends IUserSchema {
+  comparePassword(password: string): Promise<boolean>;
+}
 
 export default model<IUserModel>("User", UserSchema);
