@@ -1,20 +1,10 @@
-interface user {
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
-  password: string;
-}
-interface existingUser {
-  email: string;
-  password: string;
-}
+import { user, existingUser } from "../Interface/user";
 
 export default {
-  viewRooms: async function () {
+  viewRooms: async function (): Promise<Response> {
     return await fetch("/room");
   },
-  createRoom: async function (owner: string) {
+  createRoom: async function (owner: string): Promise<Response> {
     return await fetch("/room/createRoom", {
       method: "POST",
       headers: {
@@ -23,7 +13,7 @@ export default {
       body: owner,
     });
   },
-  signup: async function (newUser: user) {
+  signup: async function (newUser: user): Promise<Response> {
     return await fetch("/user/signup", {
       method: "POST",
       headers: {
@@ -32,7 +22,7 @@ export default {
       body: JSON.stringify(newUser),
     });
   },
-  login: async function (user: existingUser) {
+  login: async function (user: existingUser): Promise<Response> {
     return await fetch("/user/login", {
       method: "POST",
       headers: {
