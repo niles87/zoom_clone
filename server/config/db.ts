@@ -1,8 +1,12 @@
-// require("dotenv").config();
 import dotenv from "dotenv";
 
 dotenv.config();
 
-export const config = {
+type config = {
+  database: string;
+};
+
+export const config: config = {
+  // @ts-ignore
   database: process.env.DB_CONNECTION,
 };
