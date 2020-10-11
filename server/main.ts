@@ -52,6 +52,7 @@ ws.on("connection", (socket: io.Socket) => {
       room = room.filter((id: string) => id !== socket.id);
       user[roomId] = room;
     }
+    socket.broadcast.emit("user disconnect", socket.id);
   });
 });
 
