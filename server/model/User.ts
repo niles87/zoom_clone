@@ -31,6 +31,12 @@ const UserSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  friends: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 });
 
 interface IUserSchema extends Document {

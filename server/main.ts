@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import path from "path";
-import http from "http";
+import http, { Server } from "http";
 import io from "socket.io";
 
 import { config } from "./config/db";
@@ -10,7 +10,7 @@ import routes from "./routes";
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-const server = http.createServer(app);
+const server: Server = http.createServer(app);
 const ws = io(server);
 
 const user: any = {};

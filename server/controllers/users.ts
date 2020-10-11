@@ -4,8 +4,8 @@ import User, { IUserModel } from "../model/User";
 export const users = {
   signup: function (req: Request, res: Response) {
     let newUser = new User({
-      firstName: req.body.firstname,
-      lastName: req.body.lastname,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
@@ -13,7 +13,7 @@ export const users = {
 
     User.create(newUser)
       .then((user: IUserModel) => {
-        res.sendStatus(201);
+        res.json({ username: user.username });
       })
       .catch((err: any) => {
         console.log(err.message);
@@ -26,7 +26,7 @@ export const users = {
       .then((user: IUserModel | null) => {
         if (user) {
           if (user.comparePassword(password)) {
-            res.json("logged in");
+            res.json({ username: user.username });
           }
         } else {
           res.sendStatus(404);
