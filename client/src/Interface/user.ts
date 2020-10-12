@@ -4,6 +4,7 @@ export interface user {
   username: string;
   email: string;
   password: string;
+  friends?: Array<string>;
 }
 export interface existingUser {
   email: string;
