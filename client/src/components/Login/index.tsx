@@ -1,7 +1,8 @@
 import React, { ChangeEvent, useState } from "react";
-import { existingUser } from "../../Interface/user";
-import Api from "../../API/API";
 import { Link } from "react-router-dom";
+import { existingUser } from "../../Interface/user";
+import AuthService from "../../utils/auth";
+import Api from "../../API/API";
 
 export const Login = () => {
   const [formData, setFormData] = useState<existingUser>({
@@ -9,14 +10,19 @@ export const Login = () => {
     password: "",
   });
 
-  const submitForm = (ev: ChangeEvent<HTMLFormElement>) => {
+  const submitForm = async (ev: ChangeEvent<HTMLFormElement>) => {
     ev.preventDefault();
-    console.log(formData);
     try {
-      const login = Api.login(formData);
-      console.log(login);
-    } catch (error) {
-      console.error(error);
+      const login = await Api.login(formData).then((res: Response) => {
+        return res.json();
+      });
+
+      if (login) {
+        AuthService.login(login.id);
+        window.location.assign("/home");
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
