@@ -14,7 +14,7 @@ const RoomSchema = new Schema({
 
 interface IRoomSchema extends Document {
   roomOwner: string;
-  memebers: Types.Array<string>;
+  members: Types.Array<string>;
 }
 
 export interface IRoomModel extends IRoomSchema {}

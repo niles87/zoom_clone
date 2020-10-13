@@ -7,12 +7,12 @@ export const rooms = {
   },
   create: function (req: Request, res: Response) {
     const { owner } = req.body;
-    Room.create({ roomOwner: owner, memebers: [] })
+    Room.create({ roomOwner: owner, members: [] })
       .then((room: IRoomModel) => {
         res.sendStatus(201);
       })
       .catch((err: any) => {
-        console.log(err.message);
+        console.error(err.message);
         res.sendStatus(418);
       });
   },

@@ -16,7 +16,7 @@ export const users = {
         res.json({ username: user.username });
       })
       .catch((err: any) => {
-        console.log(err.message);
+        console.error(err.message);
         res.sendStatus(404);
       });
   },
@@ -26,14 +26,14 @@ export const users = {
       .then((user: IUserModel | null) => {
         if (user) {
           if (user.comparePassword(password)) {
-            res.json({ username: user.username });
+            res.json({ username: user.username, id: user._id });
           }
         } else {
           res.sendStatus(404);
         }
       })
       .catch((err: any) => {
-        console.log(err.message);
+        console.error(err.message);
         res.sendStatus(500);
       });
   },
