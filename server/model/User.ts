@@ -33,8 +33,11 @@ const UserSchema = new Schema({
   },
   friends: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "User",
+      id: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+      username: String,
     },
   ],
 });
@@ -46,6 +49,7 @@ interface IUserSchema extends Document {
   email: string;
   password: string;
   isOnline: boolean;
+  friends: Array<string>;
 }
 
 UserSchema.pre<IUserSchema>("save", async function () {

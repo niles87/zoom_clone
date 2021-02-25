@@ -20,21 +20,43 @@ export const users = {
         res.sendStatus(404);
       });
   },
-  login: function (req: Request, res: Response) {
+  login: async function (req: Request, res: Response) {
     const { email, password } = req.body;
-    User.findOne({ email })
-      .then((user: IUserModel | null) => {
-        if (user) {
-          if (user.comparePassword(password)) {
-            res.json({ username: user.username, id: user._id });
+    try {
+      const user: IUserModel | null = await User.findOne({ email });
+      if (user) {
+        if (user.comparePassword(password)) {
+          const updateOnline = await User.updateOne(
+            { _id: user._id },
+            { $set: { isOnline: true } }
+          );
+          if (updateOnline.nModified > 0) {
+            res.json({ username: user.username, id: user._id, isOnline: true });
+          } else {
+            res.sendStatus(500);
           }
-        } else {
-          res.sendStatus(404);
         }
-      })
-      .catch((err: any) => {
-        console.error(err.message);
+      } else {
+        res.sendStatus(404);
+      }
+    } catch (err) {
+      console.error(err.message);
+      res.sendStatus(500);
+    }
+  },
+  getFriends: async function (req: Request, res: Response) {
+    const { id } = req.params;
+    console.log(id);
+    try {
+      const friendsList: IUserModel | null = await User.findById({ _id: id });
+      if (friendsList) {
+        res.json(friendsList.friends);
+      } else {
         res.sendStatus(500);
-      });
+      }
+    } catch (err) {
+      console.error(err.message);
+      res.sendStatus(500);
+    }
   },
 };
