@@ -31,4 +31,9 @@ export default {
       body: JSON.stringify(user),
     });
   },
+  getFriends: async function (id: string): Promise<Response> {
+    return await fetch(`/user/friends/${id}`, {
+      method: "GET",
+    })
+  },
 };
