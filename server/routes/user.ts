@@ -5,5 +5,6 @@ const user = Router();
 user.route("/signup").post(users.signup);
 user.route("/login").post(users.login);
 user.route("/friends/:id").get(users.getFriends);
+user.route("/logout/:id").put(users.logout)
 
 export default user;
