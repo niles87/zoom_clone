@@ -44,6 +44,28 @@ export const users = {
       res.sendStatus(500);
     }
   },
+  logout: async function (req: Request, res: Response) {
+    const { id } = req.params
+    try {
+      const user: IUserModel | null = await User.findById({ _id: id })
+      if (user) {
+        const updateOnline = await User.updateOne(
+          { _id: user._id },
+          { $set: { isOnline: false } }
+        )
+        if (updateOnline.nModified > 0) {
+          res.sendStatus(200)
+        } else {
+          res.sendStatus(404)
+        }
+      } else {
+        res.sendStatus(404)
+      }
+    } catch (err) {
+      console.error(err.message)
+      res.sendStatus(500)
+    }
+  },
   getFriends: async function (req: Request, res: Response) {
     const { id } = req.params;
     console.log(id);
