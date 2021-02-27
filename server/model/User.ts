@@ -1,5 +1,5 @@
 import { Document, Model, model, Types, Schema, Query } from "mongoose";
-const bcrypt = require("bcrypt");
+import bcrypt from "bcrypt";
 
 const UserSchema = new Schema({
   firstName: {
@@ -62,6 +62,7 @@ UserSchema.pre<IUserSchema>("save", async function () {
 UserSchema.methods.comparePassword = async function (
   password: string
 ): Promise<boolean> {
+  // @ts-ignore
   return await bcrypt.compare(password, this.password);
 };
 
