@@ -1,6 +1,6 @@
 import { user, existingUser } from "../Interface/user";
 
-export default {
+export const Api = {
   viewRooms: async function (): Promise<Response> {
     return await fetch("/room");
   },
@@ -30,6 +30,11 @@ export default {
       },
       body: JSON.stringify(user),
     });
+  },
+  logout: async function (id: string): Promise<Response> {
+    return await fetch(`/user/logout/${id}`, {
+      method: "PUT",
+    })
   },
   getFriends: async function (id: string): Promise<Response> {
     return await fetch(`/user/friends/${id}`, {
