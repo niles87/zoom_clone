@@ -18,12 +18,14 @@ const PeerVideo = (props: any) => {
     props.peer.on("stream", (stream: MediaStream) => {
       ref.current.srcObject = stream;
     });
+    // eslint-disable-next-line
   }, []);
 
   return <video playsInline autoPlay ref={ref} />;
 };
 
 export const Room = (props: any): JSX.Element => {
+  // eslint-disable-next-line
   const [peers, setPeers] = useState<any[]>([]);
   const socketRef = useRef<any>();
   const userVideo = useRef<any>();
@@ -90,6 +92,7 @@ export const Room = (props: any): JSX.Element => {
           setPeers(peersArr);
         });
       });
+      // eslint-disable-next-line
   }, []);
 
   const createPeer = (

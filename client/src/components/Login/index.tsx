@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import { existingUser } from "../../Interface/user";
 import AuthService from "../../utils/auth";
-import Api from "../../API/API";
+import { Api } from "../../API";
 
 export const Login = () => {
   const [formData, setFormData] = useState<existingUser>({

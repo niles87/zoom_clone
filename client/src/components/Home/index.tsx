@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Create } from "../Create";
-import { loggedIn } from "../../Interface/user";
-import Api from "../../API/API";
+// import { loggedIn } from "../../Interface/user";
+import { Api } from "../../API";
 import Auth from "../../utils/auth";
+import { Logout } from "../Logout";
 
 export const Home = () => {
   const [user, setUser] = useState<any>();
@@ -28,26 +29,27 @@ export const Home = () => {
       console.log(friendsList);
       if (friendsList.length > 0) {
         arr = friendsList;
-      } 
+      }
     } catch (err) {
       throw err;
     } finally {
       setFriends(arr)
     }
-    
+
   };
 
   if (user) {
     return (
       <div>
+        <Logout userId={user.id} />
         <div>
           <ul>
             <p>Friends online</p>
             {friends.length > 0 ? (
               friends.map((friend) => <li key={friend}>{friend}</li>)
             ) : (
-              <li>No friends online</li>
-            )}
+                <li>No friends online</li>
+              )}
           </ul>
         </div>
         <Create />

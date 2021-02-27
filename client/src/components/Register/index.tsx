@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import { user } from "../../Interface/user";
-import Api from "../../API/API";
+import { Api } from "../../API";
 import { Link } from "react-router-dom";
 
 export const Register = (props: any) => {
