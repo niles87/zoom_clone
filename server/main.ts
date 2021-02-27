@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import path from "path";
 import http, { Server } from "http";
-import io from "socket.io";
+import * as io from "socket.io";
 
 import { config } from "./config/db";
 import routes from "./routes";
@@ -11,7 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 const server: Server = http.createServer(app);
-const ws = io(server);
+const ws = require("socket.io")(server);
 
 const user: any = {};
 
