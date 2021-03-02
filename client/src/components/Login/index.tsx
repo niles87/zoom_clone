@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { existingUser } from "../../Interface/user";
 import AuthService from "../../utils/auth";
@@ -9,6 +9,8 @@ export const Login = () => {
     email: "",
     password: "",
   });
+  const emailRef = useRef<HTMLInputElement>(null)
+  const passwordRef = useRef<HTMLInputElement>(null)
 
   const submitForm = async (ev: ChangeEvent<HTMLFormElement>) => {
     ev.preventDefault();
@@ -40,6 +42,10 @@ export const Login = () => {
             name="email"
             placeholder="Email"
             onChange={handleInputChange}
+            ref={emailRef}
+            onMouseEnter={() => {
+              if (emailRef.current) emailRef.current.focus()
+            }}
           />
         </div>
         <div>
@@ -48,6 +54,10 @@ export const Login = () => {
             name="password"
             placeholder="Password"
             onChange={handleInputChange}
+            ref={passwordRef}
+            onMouseEnter={() => {
+              if (passwordRef.current) passwordRef.current.focus()
+            }}
           />
         </div>
         <button type="submit">Login</button>
