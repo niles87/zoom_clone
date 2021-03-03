@@ -10,9 +10,9 @@ export const Logout = (props: Props) => {
     const handleLogout = async (id: string) => {
         try {
             const status = await Api.logout(id)
-            if (status) {
+            if (status.ok) {
                 AuthService.logout()
-                window.location.assign("/login")
+                window.location.assign("/")
             }
         } catch (error) {
             throw error

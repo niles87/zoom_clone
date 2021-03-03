@@ -3,6 +3,13 @@ import { Link } from "react-router-dom";
 import { existingUser } from "../../Interface/user";
 import AuthService from "../../utils/auth";
 import { Api } from "../../API";
+import styled from 'styled-components'
+
+const LoginContainer = styled.div`
+  background-color: rgba(227,227,227,0.6);
+  padding: 5px;
+  border-radius: 5px;
+`
 
 export const Login = () => {
   const [formData, setFormData] = useState<existingUser>({
@@ -34,7 +41,7 @@ export const Login = () => {
   };
 
   return (
-    <>
+    <LoginContainer>
       <form onSubmit={submitForm}>
         <div>
           <input
@@ -65,6 +72,6 @@ export const Login = () => {
       <p>
         New to the site? Register <Link to="/register">here</Link>.
       </p>
-    </>
+    </LoginContainer>
   );
 };
