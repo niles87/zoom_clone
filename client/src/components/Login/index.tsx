@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import { existingUser } from "../../Interface/user";
 import AuthService from "../../utils/auth";
 import { Api } from "../../API";
@@ -69,9 +68,6 @@ export const Login = () => {
         </div>
         <button type="submit">Login</button>
       </form>
-      <p>
-        New to the site? Register <Link to="/register">here</Link>.
-      </p>
     </LoginContainer>
   );
 };

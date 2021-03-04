@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import { user } from "../../Interface/user";
 import { Api } from "../../API";
-import { Link } from "react-router-dom";
 
 export const Register = (props: any) => {
   const [formData, setFormData] = useState<user>({
@@ -80,9 +79,6 @@ export const Register = (props: any) => {
         </div>
         <button type="submit">Register</button>
       </form>
-      <p>
-        Already a member? <Link to="/">login</Link> here.
-      </p>
     </>
   );
 };

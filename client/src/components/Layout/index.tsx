@@ -27,3 +27,10 @@ export const DropDown = styled.div<{ vis: string, dis: string }>`
     transition: all 0.5s ease;
     display: ${props => props.dis};
 `
+
+export const Button = styled.span`
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: #000;
+    cursor: default;
+`
