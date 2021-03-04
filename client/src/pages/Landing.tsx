@@ -1,9 +1,11 @@
 import React, { Fragment, useState } from "react";
 import { Login } from "../components/Login";
-import { Container, NavItem, Navbar, DropDown } from "../components/Layout";
+import { Container, NavItem, Navbar, DropDown, Button } from "../components/Layout";
+import { Register } from "../components/Register";
 
-export const LoginPage = () => {
-    const [showLogin, setShowLogin] = useState<boolean>(false)
+export const LandingPage = () => {
+    const [showDropDown, setShowDropDown] = useState<boolean>(false)
+    const [showLogin, setShowLogin] = useState<boolean>(true)
     return (
         <Fragment>
             <Container>
@@ -14,10 +16,16 @@ export const LoginPage = () => {
                         </h2>
                     </NavItem>
                     <NavItem>
-                        <button onClick={() => setShowLogin(!showLogin)}>{showLogin ? "Hide" : "Login"}</button>
-                        {showLogin ? (
-                            <DropDown vis={showLogin ? "visible" : "hidden"} dis={showLogin ? "block" : "none"}>
-                                <Login />
+                        <Button onClick={() => setShowDropDown(!showDropDown)}>{showDropDown ? "Hide" : "Login"}</Button>
+                        {showDropDown ? (
+                            <DropDown vis={showDropDown ? "visible" : "hidden"} dis={showDropDown ? "block" : "none"}>
+                                <div hidden={!showLogin}>
+                                    <Login />
+                                </div>
+                                <div hidden={showLogin}>
+                                    <Register />
+                                </div>
+                                <button onClick={() => setShowLogin(!showLogin)} >{showLogin ? "Click to register" : "Click to login"}</button>
                             </DropDown>
                         ) : null}
                     </NavItem>
