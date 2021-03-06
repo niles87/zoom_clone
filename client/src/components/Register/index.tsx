@@ -2,6 +2,7 @@ import React, { ChangeEvent, useRef, useState } from "react";
 import { user } from "../../Interface/user";
 import { Api } from "../../API";
 import { Input, Form, Submit, Validation } from "../Form";
+import { validate } from "../../utils/validate";
 
 export const Register = (props: any) => {
   const [formData, setFormData] = useState<user>({
@@ -46,27 +47,31 @@ export const Register = (props: any) => {
     const { name, value } = ev.target;
     setFormData({ ...formData, [name]: value });
     const validEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+    const error = {
+      ...errors
+    }
     switch (name) {
       case 'firstName':
-        errors.firstName = value.length < 2 ? 'Must be longer than 2 characters!' : ''
+        error.firstName = value.length < 2 ? 'Must be longer than 2 characters!' : ''
         break;
       case 'lastName':
-        errors.lastName = value.length < 2 ? 'Must be longer than 2 characters!' : ''
+        error.lastName = value.length < 2 ? 'Must be longer than 2 characters!' : ''
         break
       case 'username':
-        errors.username = value.length < 4 ? 'Must be longer than 4 characters!' : ''
+        error.username = value.length < 4 ? 'Must be longer than 4 characters!' : ''
         break
       case 'email':
-        errors.email = validEmail.test(value) ? '' : 'Email is not valid'
+        error.email = validEmail.test(value) ? '' : 'Email is not valid'
         break
       case 'password':
-        errors.password = value.length < 6 ? 'Must be longer than 6 characters' : ''
+        error.password = value.length < 6 ? 'Must be longer than 6 characters' : ''
         break;
       default:
         break;
     }
-  };
 
+    setErrors({ ...error })
+  };
   return (
     <>
       <Form onSubmit={submitForm}>
@@ -81,6 +86,7 @@ export const Register = (props: any) => {
               if (firstRef.current) firstRef.current.focus()
             }}
           />
+          <Validation vis={validate(errors.firstName) ? "none" : "block"}>{errors.firstName}</Validation>
         </div>
         <div>
           <Input
@@ -93,6 +99,7 @@ export const Register = (props: any) => {
               if (lastRef.current) lastRef.current.focus()
             }}
           />
+          <Validation vis={validate(errors.lastName) ? "none" : "block"}>{errors.lastName}</Validation>
         </div>
         <div>
           <Input
@@ -105,6 +112,7 @@ export const Register = (props: any) => {
               if (usernameRef.current) usernameRef.current.focus()
             }}
           />
+          <Validation vis={validate(errors.username) ? "none" : "block"}>{errors.username}</Validation>
         </div>
         <div>
           <Input
@@ -117,6 +125,7 @@ export const Register = (props: any) => {
               if (emailRef.current) emailRef.current.focus()
             }}
           />
+          <Validation vis={validate(errors.email) ? "none" : "block"}>{errors.email}</Validation>
         </div>
         <div>
           <Input
@@ -129,6 +138,7 @@ export const Register = (props: any) => {
               if (passwordRef.current) passwordRef.current.focus()
             }}
           />
+          <Validation vis={validate(errors.password) ? "none" : "block"}>{errors.password}</Validation>
         </div>
         <Submit type="submit">Register</Submit>
       </Form>

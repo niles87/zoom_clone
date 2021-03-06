@@ -31,7 +31,8 @@ export const Submit = styled.button`
     cursor: pointer;
 `
 
-export const Validation = styled.span`
+export const Validation = styled.span<{ vis: string }>`
     font-size: 10px;
     color: rgba(246,23,23,1);
+    display: ${props => props.vis};
 `
