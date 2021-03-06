@@ -2,6 +2,11 @@ import React, { Fragment, useState } from "react";
 import { Login } from "../components/Login";
 import { Container, NavItem, Navbar, DropDown, Button } from "../components/Layout";
 import { Register } from "../components/Register";
+import styled from "styled-components";
+
+const Switch = styled(Button)`
+    font-size: 14px;
+`
 
 export const LandingPage = () => {
     const [showDropDown, setShowDropDown] = useState<boolean>(false)
@@ -16,7 +21,7 @@ export const LandingPage = () => {
                         </h2>
                     </NavItem>
                     <NavItem>
-                        <Button onClick={() => setShowDropDown(!showDropDown)}>{showDropDown ? "Hide" : "Login"}</Button>
+                        <Button onClick={() => setShowDropDown(!showDropDown)}>{showDropDown ? "Hide" : "Signup/Login"}</Button>
                         {showDropDown ? (
                             <DropDown vis={showDropDown ? "visible" : "hidden"} dis={showDropDown ? "block" : "none"}>
                                 <div hidden={!showLogin}>
@@ -25,7 +30,7 @@ export const LandingPage = () => {
                                 <div hidden={showLogin}>
                                     <Register />
                                 </div>
-                                <button onClick={() => setShowLogin(!showLogin)} >{showLogin ? "Click to register" : "Click to login"}</button>
+                                <Switch onClick={() => setShowLogin(!showLogin)} >{showLogin ? "Click For Register" : "Click For Login"}</Switch>
                             </DropDown>
                         ) : null}
                     </NavItem>
