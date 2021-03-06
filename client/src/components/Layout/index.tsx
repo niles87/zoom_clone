@@ -29,8 +29,9 @@ export const DropDown = styled.div<{ vis: string, dis: string }>`
 `
 
 export const Button = styled.span`
+    padding: 3px;
     border-bottom-width: 2px;
     border-bottom-style: solid;
     border-bottom-color: #000;
-    cursor: default;
+    cursor: pointer;
 `

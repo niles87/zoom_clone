@@ -2,13 +2,7 @@ import React, { ChangeEvent, useRef, useState } from "react";
 import { existingUser } from "../../Interface/user";
 import AuthService from "../../utils/auth";
 import { Api } from "../../API";
-import styled from 'styled-components'
-
-const LoginContainer = styled.div`
-  background-color: rgba(227,227,227,0.6);
-  padding: 5px;
-  border-radius: 5px;
-`
+import { Input, Form, Submit } from "../Form";
 
 export const Login = () => {
   const [formData, setFormData] = useState<existingUser>({
@@ -40,13 +34,13 @@ export const Login = () => {
   };
 
   return (
-    <LoginContainer>
-      <form onSubmit={submitForm}>
+    <>
+      <Form onSubmit={submitForm}>
         <div>
-          <input
+          <Input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="Email*"
             onChange={handleInputChange}
             ref={emailRef}
             onMouseEnter={() => {
@@ -55,10 +49,10 @@ export const Login = () => {
           />
         </div>
         <div>
-          <input
+          <Input
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="Password*"
             onChange={handleInputChange}
             ref={passwordRef}
             onMouseEnter={() => {
@@ -66,8 +60,8 @@ export const Login = () => {
             }}
           />
         </div>
-        <button type="submit">Login</button>
-      </form>
-    </LoginContainer>
+        <Submit type="submit">Login</Submit>
+      </Form>
+    </>
   );
 };
