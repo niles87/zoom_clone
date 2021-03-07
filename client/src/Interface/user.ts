@@ -3,14 +3,21 @@ export interface existingUser {
   password: string;
 }
 
-export interface user extends existingUser {
+export interface newUser extends existingUser {
   firstName: string;
   lastName: string;
   username: string;
   friends?: Array<string>;
 }
 
-export interface loggedIn extends user {
+export interface loggedIn extends newUser {
   id: string;
   isOnline: boolean;
+}
+
+export interface user {
+  _id: string;
+  isOnline: boolean;
+  username: string;
+  email: string;
 }
