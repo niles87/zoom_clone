@@ -1,11 +1,11 @@
 import React, { ChangeEvent, useRef, useState } from "react";
-import { user } from "../../Interface/user";
+import { newUser } from "../../Interface/user";
 import { Api } from "../../API";
 import { Input, Form, Submit, Validation } from "../Form";
 import { validate } from "../../utils/validate";
 
 export const Register = (props: any) => {
-  const [formData, setFormData] = useState<user>({
+  const [formData, setFormData] = useState<newUser>({
     firstName: "",
     lastName: "",
     username: "",
@@ -27,10 +27,9 @@ export const Register = (props: any) => {
 
   const submitForm = async (ev: ChangeEvent<HTMLFormElement>) => {
     ev.preventDefault();
-    console.log(formData);
     try {
+      // eslint-disable-next-line
       const user = await Api.signup(formData);
-      console.log(user);
     } catch (error) {
       console.error(error);
     }
@@ -79,7 +78,7 @@ export const Register = (props: any) => {
           <Input
             type="text"
             name="firstName"
-            placeholder="First Name"
+            placeholder="First Name*"
             onChange={handleInputChange}
             ref={firstRef}
             onMouseEnter={() => {
@@ -92,7 +91,7 @@ export const Register = (props: any) => {
           <Input
             type="text"
             name="lastName"
-            placeholder="Last Name"
+            placeholder="Last Name*"
             onChange={handleInputChange}
             ref={lastRef}
             onMouseEnter={() => {
@@ -105,7 +104,7 @@ export const Register = (props: any) => {
           <Input
             type="text"
             name="username"
-            placeholder="Display Name"
+            placeholder="Display Name*"
             onChange={handleInputChange}
             ref={usernameRef}
             onMouseEnter={() => {
@@ -118,7 +117,7 @@ export const Register = (props: any) => {
           <Input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="Email*"
             onChange={handleInputChange}
             ref={emailRef}
             onMouseEnter={() => {
@@ -131,7 +130,7 @@ export const Register = (props: any) => {
           <Input
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="Password*"
             onChange={handleInputChange}
             ref={passwordRef}
             onMouseEnter={() => {

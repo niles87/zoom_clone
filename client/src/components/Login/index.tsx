@@ -53,7 +53,7 @@ export const Login = () => {
 
     setErrors({ ...error })
   };
-
+  console.log(formData)
   return (
     <>
       <Form onSubmit={submitForm}>

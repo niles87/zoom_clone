@@ -13,6 +13,8 @@ export const Navbar = styled.ul`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 `
 
 export const NavItem = styled.li`
@@ -34,4 +36,9 @@ export const Button = styled.span`
     border-bottom-style: solid;
     border-bottom-color: #000;
     cursor: pointer;
+`
+
+export const Logo = styled.h2`
+    font-family: Noto Sans KR, sans-serif;
+    margin: 5px;
 `
