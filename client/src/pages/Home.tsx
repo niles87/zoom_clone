@@ -1,24 +1,40 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Create } from "../components/Create";
-// import { loggedIn } from "../../Interface/user";
+import { user } from "../Interface/user";
 import { Api } from "../API";
 import Auth from "../utils/auth";
 import { Logout } from "../components/Logout";
-import { Navbar, NavItem, Container } from "../components/Layout";
+import { Navbar, NavItem, Logo } from "../components/Layout";
+import { FlexChild, FlexContainer, UserInfoContainer } from "../components/HomeLayout";
 
 export const Home = () => {
-  const [user, setUser] = useState<any>();
+  const [user, setUser] = useState<user>();
   const [friends, setFriends] = useState<any[]>([]);
 
   useEffect(() => {
-    setUser(Auth.getId());
+    getUser(Auth.getId())
   }, []);
 
   useEffect(() => {
     if (user) {
-      fetchFriends(user)
+      fetchFriends(user._id)
     }
   }, [user]);
+
+  const getUser = async (id: string) => {
+    let userInfo
+    try {
+      const userData = await Api.getUserInfo(id).then(async (res: Response) => {
+        const data = await res.json()
+        return data
+      })
+      if (userData) userInfo = userData
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setUser(userInfo)
+    }
+  }
 
   const fetchFriends = async (id: string) => {
     let arr = []
@@ -43,25 +59,34 @@ export const Home = () => {
       <Fragment>
         <Navbar>
           <NavItem>
-            <h2>MOOZ CL</h2>
+            <Logo>MOOZ CL</Logo>
           </NavItem>
           <NavItem>
-            <Create />
-          </NavItem>
-          <NavItem>
-            <Logout userId={user} />
+            <Logout userId={user._id} />
           </NavItem>
         </Navbar>
-        <Container>
-          <p>Friends online</p>
-          <ul>
-            {friends.length > 0 ? (
-              friends.map((friend) => <li key={friend}>{friend}</li>)
-            ) : (
+        <FlexContainer>
+          <FlexChild>
+            <Create />
+          </FlexChild>
+          <FlexChild>
+            <p>Friends online</p>
+            <ul>
+              {friends.length > 0 ? (
+                friends.map((friend) => <li key={friend}>{friend}</li>)
+              ) : (
                 <li>No friends online</li>
               )}
-          </ul>
-        </Container>
+            </ul>
+          </FlexChild>
+          <FlexChild>
+            <UserInfoContainer>
+              <p>{user.username}</p>
+              <p>{user.email}</p>
+
+            </UserInfoContainer>
+          </FlexChild>
+        </FlexContainer>
       </Fragment>
     );
   } else {

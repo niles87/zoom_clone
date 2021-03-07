@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { Login } from "../components/Login";
-import { Container, NavItem, Navbar, DropDown, Button } from "../components/Layout";
+import { Container, NavItem, Navbar, DropDown, Button, Logo } from "../components/Layout";
 import { Register } from "../components/Register";
 import styled from "styled-components";
 
@@ -16,9 +16,9 @@ export const LandingPage = () => {
             <Container>
                 <Navbar>
                     <NavItem>
-                        <h2>
+                        <Logo>
                             MOOZ CL
-                        </h2>
+                        </Logo>
                     </NavItem>
                     <NavItem>
                         <Button onClick={() => setShowDropDown(!showDropDown)}>{showDropDown ? "Hide" : "Signup/Login"}</Button>
