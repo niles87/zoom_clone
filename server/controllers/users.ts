@@ -81,4 +81,13 @@ export const users = {
       res.sendStatus(500);
     }
   },
+  getUserInfo: async function (req: Request, res: Response) {
+    const { id } = req.params
+    try {
+      const user: IUserModel | null = await User.findById(id).select("-__v -friends -password -firstName -lastName");
+      res.json(user)
+    } catch (err) {
+      console.log(err)
+    }
+  }
 };
