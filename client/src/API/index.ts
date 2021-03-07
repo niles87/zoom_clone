@@ -1,4 +1,4 @@
-import { user, existingUser } from "../Interface/user";
+import { newUser, existingUser } from "../Interface/user";
 
 export const Api = {
   viewRooms: async function (): Promise<Response> {
@@ -13,7 +13,7 @@ export const Api = {
       body: owner,
     });
   },
-  signup: async function (newUser: user): Promise<Response> {
+  signup: async function (newUser: newUser): Promise<Response> {
     return await fetch("/user/signup", {
       method: "POST",
       headers: {
@@ -41,4 +41,7 @@ export const Api = {
       method: "GET",
     })
   },
+  getUserInfo: async function (id: string): Promise<Response> {
+    return await fetch(`/user/${id}`)
+  }
 };
