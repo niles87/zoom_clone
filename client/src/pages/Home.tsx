@@ -4,12 +4,19 @@ import { user } from "../Interface/user";
 import { Api } from "../API";
 import Auth from "../utils/auth";
 import { Logout } from "../components/Logout";
-import { Navbar, NavItem, Logo } from "../components/Layout";
-import { FlexChild, FlexContainer, UserInfoContainer } from "../components/HomeLayout";
+import { Navbar, NavItem, Logo, Toast } from "../components/Layout";
+import {
+  FlexChild,
+  FlexContainer,
+  UserInfoContainer,
+  FriendsList
+} from "../components/HomeLayout";
+import { Input } from "../components/Form";
 
 export const Home = () => {
   const [user, setUser] = useState<user>();
   const [friends, setFriends] = useState<any[]>([]);
+  const [toast, setToast] = useState<boolean>(false)
 
   useEffect(() => {
     getUser(Auth.getId())
@@ -21,14 +28,35 @@ export const Home = () => {
     }
   }, [user]);
 
+  useEffect(() => {
+    window.addEventListener('beforeunload', showToast)
+    window.addEventListener('unload', closeBrowser)
+    return () => {
+      window.removeEventListener('beforeunload', showToast)
+      window.removeEventListener('unload', closeBrowser)
+    }
+  })
+
+  const showToast = () => {
+    setToast(true)
+  }
+
+  const closeBrowser = async (ev: Event) => {
+    console.log(ev)
+    if (user) {
+      const logout = await Api.logout(user._id)
+      console.log(logout.ok)
+    }
+  }
+
   const getUser = async (id: string) => {
-    let userInfo
+    let userInfo;
     try {
       const userData = await Api.getUserInfo(id).then(async (res: Response) => {
         const data = await res.json()
         return data
       })
-      if (userData) userInfo = userData
+      if (userData) userInfo = userData;
     } catch (error) {
       console.log(error)
     } finally {
@@ -65,24 +93,26 @@ export const Home = () => {
             <Logout userId={user._id} />
           </NavItem>
         </Navbar>
+        <Toast dis={toast}>Good Bye</Toast>
         <FlexContainer>
           <FlexChild>
             <Create />
           </FlexChild>
           <FlexChild>
             <p>Friends online</p>
-            <ul>
+            <FriendsList>
               {friends.length > 0 ? (
                 friends.map((friend) => <li key={friend}>{friend}</li>)
               ) : (
                 <li>No friends online</li>
               )}
-            </ul>
+            </FriendsList>
+            <Input placeholder="Enter Email" />
           </FlexChild>
           <FlexChild>
             <UserInfoContainer>
-              <p>{user.username}</p>
-              <p>{user.email}</p>
+              <p>username: {user.username}</p>
+              <p>email: {user.email}</p>
 
             </UserInfoContainer>
           </FlexChild>
