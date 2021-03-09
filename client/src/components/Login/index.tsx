@@ -1,8 +1,9 @@
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { existingUser } from "../../Interface/user";
 import AuthService from "../../utils/auth";
 import { Api } from "../../API";
 import { Input, Form, Submit, Validation } from "../Form";
+import { Toast } from "../Layout";
 import { validate } from "../../utils/validate";
 
 export const Login = () => {
@@ -10,12 +11,21 @@ export const Login = () => {
     email: "",
     password: "",
   });
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<existingUser>({
     email: "",
     password: ""
   })
+  const [toast, setToast] = useState<boolean>(false)
+  const [message, setMessage] = useState<string>("")
   const emailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    setTimeout(() => {
+      console.log("toasting ;)")
+      setToast(false)
+    }, 2000)
+  }, [toast])
 
   const submitForm = async (ev: ChangeEvent<HTMLFormElement>) => {
     ev.preventDefault();
@@ -29,7 +39,8 @@ export const Login = () => {
         window.location.assign("/home");
       }
     } catch (err) {
-      console.error(err);
+      setMessage("Failed to login")
+      setToast(true)
     }
   };
 
@@ -53,10 +64,11 @@ export const Login = () => {
 
     setErrors({ ...error })
   };
-  console.log(formData)
+
   return (
     <>
       <Form onSubmit={submitForm}>
+        <Toast dis={toast}>{message}</Toast>
         <div>
           <Input
             type="email"

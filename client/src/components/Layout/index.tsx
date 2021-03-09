@@ -42,3 +42,14 @@ export const Logo = styled.h2`
     font-family: Noto Sans KR, sans-serif;
     margin: 5px;
 `
+
+export const Toast = styled.span<{ dis: boolean }>`
+    width: 110px;
+    margin: 0 auto;
+    background: rgba(204,20,20,1);
+    color: rgb(255,255,255);
+    font-weight: bold;
+    padding: 2px;
+    border-radius: 5px;
+    display: ${props => props.dis ? "block" : "none"}
+`

@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Modal } from "../Modal";
+import { Modal, MButton } from "../Modal";
 
 export const Create = (props: any) => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -15,7 +15,7 @@ export const Create = (props: any) => {
     <Fragment>
       <Modal show={showModal} handleClose={closeModal}>
         <div>
-          <button>Create a new Room</button>
+          <MButton>Create a new Room</MButton>
         </div>
         <div>
           <p>Did you mean to join a room?</p>

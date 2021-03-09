@@ -1,10 +1,11 @@
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { ChangeEvent, useRef, useState, useEffect } from "react";
 import { newUser } from "../../Interface/user";
 import { Api } from "../../API";
 import { Input, Form, Submit, Validation } from "../Form";
 import { validate } from "../../utils/validate";
+import { Toast } from "../Layout";
 
-export const Register = (props: any) => {
+export const Register = () => {
   const [formData, setFormData] = useState<newUser>({
     firstName: "",
     lastName: "",
@@ -19,11 +20,20 @@ export const Register = (props: any) => {
     email: "",
     password: ""
   })
+  const [toast, setToast] = useState<boolean>(false)
+  const [message, setMessage] = useState<string>("")
   const firstRef = useRef<HTMLInputElement>(null)
   const lastRef = useRef<HTMLInputElement>(null)
   const usernameRef = useRef<HTMLInputElement>(null)
   const emailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    setTimeout(() => {
+      console.log("toasting ;)")
+      setToast(false)
+    }, 2000)
+  }, [toast])
 
   const submitForm = async (ev: ChangeEvent<HTMLFormElement>) => {
     ev.preventDefault();
@@ -31,7 +41,8 @@ export const Register = (props: any) => {
       // eslint-disable-next-line
       const user = await Api.signup(formData);
     } catch (error) {
-      console.error(error);
+      setMessage("Failed to Register")
+      setToast(true)
     }
     setFormData({
       firstName: "",
@@ -74,6 +85,7 @@ export const Register = (props: any) => {
   return (
     <>
       <Form onSubmit={submitForm}>
+        <Toast dis={toast}>{message}</Toast>
         <div>
           <Input
             type="text"
