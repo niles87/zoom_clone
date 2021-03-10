@@ -3,6 +3,7 @@ import { Document, model, Schema, Types } from "mongoose";
 const RoomSchema = new Schema({
   roomOwner: {
     type: String,
+    required: true
   },
   members: [
     {
@@ -17,6 +18,6 @@ interface IRoomSchema extends Document {
   members: Types.Array<string>;
 }
 
-export interface IRoomModel extends IRoomSchema {}
+export interface IRoomModel extends IRoomSchema { }
 
 export default model<IRoomModel>("Room", RoomSchema);
