@@ -8,10 +8,19 @@ export const Api = {
     return await fetch("/room/createRoom", {
       method: "POST",
       headers: {
-        "Content-Type": "text/plain",
+        "Content-Type": "application/json",
       },
       body: owner,
     });
+  },
+  addMemberToRoom: async function (id: string, member: existingUser): Promise<Response> {
+    return await fetch(`/room/addMember/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(member)
+    })
   },
   signup: async function (newUser: newUser): Promise<Response> {
     return await fetch("/user/signup", {
