@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { existingUser } from "../../Interface/user";
 import AuthService from "../../utils/auth";
-import { Api } from "../../API";
+import Api from "../../API";
 import { Input, Form, Submit, Validation } from "../Form";
 import { Toast } from "../Layout";
 import { validate } from "../../utils/validate";

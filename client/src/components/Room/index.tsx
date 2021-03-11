@@ -12,13 +12,12 @@ type joined = {
   callerID: string;
 };
 
-const PeerVideo = (props: any) => {
+const Video = (props: any): JSX.Element => {
   const ref = useRef<any>();
   useEffect(() => {
     props.peer.on("stream", (stream: MediaStream) => {
       ref.current.srcObject = stream;
     });
-    // eslint-disable-next-line
   }, []);
 
   return <video playsInline autoPlay ref={ref} />;
@@ -92,7 +91,6 @@ export const Room = (props: any): JSX.Element => {
           setPeers(peersArr);
         });
       });
-      // eslint-disable-next-line
   }, []);
 
   const createPeer = (
@@ -140,7 +138,7 @@ export const Room = (props: any): JSX.Element => {
     <div className="classroom">
       <div className="peerContainer">
         {peersRef.current.map((peer: any) => {
-          return <PeerVideo key={peer.peerID} peer={peer.peer} />;
+          return <Video key={peer.peerID} peer={peer.peer} />;
         })}
       </div>
       <video

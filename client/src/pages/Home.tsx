@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Create } from "../components/Create";
 import { user } from "../Interface/user";
-import { Api } from "../API";
+import Api from "../API";
 import Auth from "../utils/auth";
 import { Logout } from "../components/Logout";
 import { Navbar, NavItem, Logo, Toast } from "../components/Layout";
@@ -96,7 +96,7 @@ export const Home = () => {
         <Toast dis={toast}>Good Bye</Toast>
         <FlexContainer>
           <FlexChild>
-            <Create />
+            <Create info={user} />
           </FlexChild>
           <FlexChild>
             <p>Friends online</p>

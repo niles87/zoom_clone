@@ -1,5 +1,5 @@
 import React from "react"
-import { Api } from "../../API"
+import Api from "../../API"
 import AuthService from "../../utils/auth"
 
 interface Props {

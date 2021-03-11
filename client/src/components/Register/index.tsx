@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useRef, useState, useEffect } from "react";
 import { newUser } from "../../Interface/user";
-import { Api } from "../../API";
+import Api from "../../API";
 import { Input, Form, Submit, Validation } from "../Form";
 import { validate } from "../../utils/validate";
 import { Toast } from "../Layout";
@@ -82,6 +82,7 @@ export const Register = () => {
 
     setErrors({ ...error })
   };
+
   return (
     <>
       <Form onSubmit={submitForm}>
