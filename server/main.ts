@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import path from "path";
-import http, { Server } from "http";
-import * as io from "socket.io";
+import { createServer } from "http";
+import { Server, Socket } from "socket.io";
 
 import { config } from "./config/db";
 import routes from "./routes";
@@ -10,14 +10,14 @@ import routes from "./routes";
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-const server: Server = http.createServer(app);
-const ws = require("socket.io")(server);
+const server = createServer(app);
+const ws = new Server(server);
 
 const user: any = {};
 
 const roomSocket: any = {};
 
-ws.on("connection", (socket: io.Socket) => {
+ws.on("connection", (socket: Socket) => {
   socket.on("joining room", (roomId) => {
     if (user[roomId]) {
       user[roomId].push(socket.id);
