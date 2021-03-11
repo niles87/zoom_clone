@@ -9,7 +9,7 @@ export const rooms = {
     const { owner } = req.body;
     Room.create({ roomOwner: owner, members: [] })
       .then((room: IRoomModel) => {
-        res.sendStatus(201).json(room);
+        res.json(room);
       })
       .catch((err: any) => {
         console.error(err.message);
@@ -17,7 +17,8 @@ export const rooms = {
       });
   },
   addMemberToRoom: async function (req: Request, res: Response) {
-    const { id, member } = req.body
+    const { id } = req.params
+    const { member } = req.body
     try {
       const room = await Room.findByIdAndUpdate({ _id: id }, {
         $push: { members: member._id }
