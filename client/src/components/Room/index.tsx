@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import Peer, { SignalData } from "simple-peer";
+import { VideoContainer, Video } from "../Video";
+import { Container } from "../Layout";
 
 type peersRef = {
   peerID: string;
@@ -12,7 +14,7 @@ type joined = {
   callerID: string;
 };
 
-const Video = (props: any): JSX.Element => {
+const PeerVideo = (props: any): JSX.Element => {
   const ref = useRef<any>();
   useEffect(() => {
     props.peer.on("stream", (stream: MediaStream) => {
@@ -20,7 +22,9 @@ const Video = (props: any): JSX.Element => {
     });
   }, []);
 
-  return <video playsInline autoPlay ref={ref} />;
+  return (
+    <Video playsInline autoPlay ref={ref} />
+  )
 };
 
 export const Room = (props: any): JSX.Element => {
@@ -29,7 +33,7 @@ export const Room = (props: any): JSX.Element => {
   const socketRef = useRef<any>();
   const userVideo = useRef<any>();
   const peersRef = useRef<Array<peersRef>>([]);
-  const roomID = props.match.params.roomID;
+  const roomID = props.match.params.id;
 
   useEffect(() => {
     socketRef.current = io.connect("/");
@@ -37,7 +41,7 @@ export const Room = (props: any): JSX.Element => {
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
         userVideo.current.srcObject = stream;
-        socketRef.current.emit("join room", roomID);
+        socketRef.current.emit("joining room", roomID);
         socketRef.current.on("all users", (users: any) => {
           const peerArr: Peer.Instance[] = [];
           users.forEach((userID: string) => {
@@ -134,20 +138,27 @@ export const Room = (props: any): JSX.Element => {
 
     return peer;
   };
+
   return (
-    <div className="classroom">
-      <div className="peerContainer">
+    <Container>
+      <div>
         {peersRef.current.map((peer: any) => {
-          return <Video key={peer.peerID} peer={peer.peer} />;
+          return (
+            <VideoContainer talking={false} key={peer.peerId}>
+              <PeerVideo peer={peer.peer} />;
+            </VideoContainer>
+          )
         })}
       </div>
-      <video
-        className="userVideo"
-        muted
-        ref={userVideo}
-        autoPlay
-        playsInline
-      ></video>
-    </div>
+      <VideoContainer talking={false}>
+        <Video
+          muted
+          ref={userVideo}
+          autoPlay
+          playsInline
+        ></Video>
+      </VideoContainer>
+    </Container>
+
   );
 };
