@@ -3,6 +3,7 @@ import io from "socket.io-client";
 import Peer, { SignalData } from "simple-peer";
 import { VideoContainer, Video } from "../Video";
 import { Container } from "../Layout";
+import { checkSpeaker } from "../../utils/media";
 
 type peersRef = {
   peerID: string;
@@ -30,6 +31,7 @@ const PeerVideo = (props: any): JSX.Element => {
 export const Room = (props: any): JSX.Element => {
   // eslint-disable-next-line
   const [peers, setPeers] = useState<any[]>([]);
+  const [isTalking, setIsTalking] = useState<boolean>(false)
   const socketRef = useRef<any>();
   const userVideo = useRef<any>();
   const peersRef = useRef<Array<peersRef>>([]);
