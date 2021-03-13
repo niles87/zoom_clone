@@ -80,7 +80,7 @@ export const Room = (props: any): JSX.Element => {
           }
         });
 
-        socketRef.current.on("receiving returned signal", (payload: any) => {
+        socketRef.current.on("receiving signal", (payload: any) => {
           const item: peersRef | undefined = peersRef.current.find(
             (p: peersRef) => p.peerID === payload.id
           );
