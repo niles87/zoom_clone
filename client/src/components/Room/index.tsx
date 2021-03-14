@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import Peer, { SignalData } from "simple-peer";
-import { VideoContainer, Video } from "../Video";
+import { VideoContainer, Video, Name } from "../Video";
 import { Container } from "../Layout";
-import { checkSpeaker } from "../../utils/media";
+// import { checkSpeaker } from "../../utils/media";
 
-type peersRef = {
+type peerRef = {
   peerID: string;
   peer: Peer.Instance;
 };
@@ -15,30 +15,41 @@ type joined = {
   callerID: string;
 };
 
-const PeerVideo = (props: any): JSX.Element => {
+interface peerProps {
+  peer: Peer.Instance;
+  peerId: string;
+  talking: boolean;
+}
+
+const PeerVideo = (props: peerProps): JSX.Element => {
   const ref = useRef<any>();
   useEffect(() => {
     props.peer.on("stream", (stream: MediaStream) => {
       ref.current.srcObject = stream;
     });
+    // eslint-disable-next-line
   }, []);
 
   return (
-    <Video playsInline autoPlay ref={ref} />
+    <VideoContainer talking={props.talking}>
+      <Name talking={props.talking}>{props.peerId}</Name>
+      <Video playsInline autoPlay ref={ref} />
+    </VideoContainer>
   )
 };
 
 export const Room = (props: any): JSX.Element => {
   // eslint-disable-next-line
   const [peers, setPeers] = useState<any[]>([]);
+  // eslint-disable-next-line
   const [isTalking, setIsTalking] = useState<boolean>(false)
   const socketRef = useRef<any>();
   const userVideo = useRef<any>();
-  const peersRef = useRef<Array<peersRef>>([]);
+  const peersRef = useRef<Array<peerRef>>([]);
   const roomID = props.match.params.id;
 
   useEffect(() => {
-    socketRef.current = io.connect("/");
+    socketRef.current = io.connect(`/`);
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
@@ -58,12 +69,13 @@ export const Room = (props: any): JSX.Element => {
             });
             peerArr.push(peer);
           });
+          console.log(peersRef)
           setPeers(peerArr);
         });
 
         socketRef.current.on("user joined", (payload: joined) => {
-          const item: peersRef | undefined = peersRef.current.find(
-            (p: peersRef) => p.peerID === payload.callerID
+          const item: peerRef | undefined = peersRef.current.find(
+            (p: peerRef) => p.peerID === payload.callerID
           );
           if (!item) {
             const peer: Peer.Instance = addPeer(
@@ -81,8 +93,8 @@ export const Room = (props: any): JSX.Element => {
         });
 
         socketRef.current.on("receiving signal", (payload: any) => {
-          const item: peersRef | undefined = peersRef.current.find(
-            (p: peersRef) => p.peerID === payload.id
+          const item: peerRef | undefined = peersRef.current.find(
+            (p: peerRef) => p.peerID === payload.id
           );
           if (item) item.peer.signal(payload.signal);
         });
@@ -97,6 +109,7 @@ export const Room = (props: any): JSX.Element => {
           setPeers(peersArr);
         });
       });
+    // eslint-disable-next-line
   }, []);
 
   const createPeer = (
@@ -146,13 +159,12 @@ export const Room = (props: any): JSX.Element => {
       <div>
         {peersRef.current.map((peer: any) => {
           return (
-            <VideoContainer talking={false} key={peer.peerId}>
-              <PeerVideo peer={peer.peer} />;
-            </VideoContainer>
+            <PeerVideo peer={peer.peer} key={peer.peerId} talking={isTalking} peerId={peer.peerId} />
           )
         })}
       </div>
       <VideoContainer talking={false}>
+        <Name talking={false}>{roomID}</Name>
         <Video
           muted
           ref={userVideo}
