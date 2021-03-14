@@ -9,7 +9,9 @@
     "start:prod": "cd server && npm start",
     "start:dev": "concurrently \"npm run dev\" \"cd client && npm start\"",
     "dev": "cd server && npm run dev",
-    "install": "cd server && npm i && cd ../client && npm i"
+    "install": "cd server && npm i && cd ../client && npm i",
+    "build": "cd server && npm run compile && cd ../client && npm run build",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "author": "Niles Bingham",
   "license": "MIT",
@@ -19,5 +21,9 @@
   },
   "dependencies": {
     "if-env": "^1.0.4"
+  },
+  "engines": {
+    "node": "12.18.3",
+    "npm": "6.14.6"
   }
 }

@@ -27,7 +27,7 @@ ws.on("connection", (socket: Socket) => {
     roomSocket[socket.id] = roomId;
 
     const peopleInRoom = user[roomId].filter((id: string) => id !== socket.id);
-
+    console.log("joining room ", roomId)
     socket.emit("all users", peopleInRoom);
   });
 
@@ -36,6 +36,7 @@ ws.on("connection", (socket: Socket) => {
       signal: payload.signal,
       callerID: payload.callerID,
     });
+    console.log("sending signal ", payload.userToSignal)
   });
 
   socket.on("returning signal", (payload) => {
@@ -43,6 +44,7 @@ ws.on("connection", (socket: Socket) => {
       signal: payload.signal,
       id: socket.id,
     });
+    console.log("returning signal ", payload.callerID)
   });
 
   socket.on("disconnect", () => {
