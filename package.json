@@ -16,9 +16,12 @@
   },
   "author": "Niles Bingham",
   "license": "MIT",
+  "cacheDirectories": [
+    "client/node_modules",
+    "server/node_modules"
+  ],
   "devDependencies": {
-    "concurrently": "^6.0.0",
-    "typescript": "^4.2.2"
+    "concurrently": "^6.0.0"
   },
   "dependencies": {
     "if-env": "^1.0.4"
