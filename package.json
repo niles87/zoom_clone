@@ -10,7 +10,8 @@
     "start:dev": "concurrently \"npm run dev\" \"cd client && npm start\"",
     "dev": "cd server && npm run dev",
     "install": "cd server && npm i && cd ../client && npm i",
-    "build": "cd server && npm run compile && cd ../client && npm install && npm run build",
+    "build": "cd ../client && npm install && npm run build",
+    "prebuild": "cd server && npm install && npm run compile",
     "postbuild": "npm run build"
   },
   "author": "Niles Bingham",
