@@ -11,7 +11,7 @@
     "dev": "cd server && npm run dev",
     "install": "cd server && npm i && cd ../client && npm i",
     "build": "cd ../client && npm install && npm run build",
-    "prebuild": "cd server && npm install && npm i --save-dev typescript @types/express @types/bcrypt && npm run compile",
+    "prebuild": "cd ../server && npm install && npm i --save-dev typescript @types/express @types/bcrypt && npm run compile",
     "postbuild": "npm run build"
   },
   "author": "Niles Bingham",
