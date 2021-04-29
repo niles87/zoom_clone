@@ -1,16 +1,16 @@
 language: node_js
 node_js:
-  - '12'
+- '12'
 script:
-  - echo '=====Building starts====='
-  - echo 'Installing dependencies'
-  - npm install
-  - echo 'Building app'
-  - npm run build
+- echo '=====Building starts====='
+- echo 'Installing dependencies'
+- npm install
+- echo 'Building app'
+- npm run build
 deploy:
   provider: heroku
   api_key:
-    secure: gdBloTXTzQZoyhYAJCIOfq5XpC6/dkssvk3ivqO8ijwOWJs0Dqzb3Id/Zq9s4dygIlqDRhu/a9gtYKjNSJVqnTrTisU27RDTUeytQCvkarKUxZfVdzifIFtxX8TJQ48txfpZOulyHoOA6U/U9Afxcy37ruMtd+Dsv3y8XNUGeCBpKQrixy5xl05T+IagLz9blgdPhYVJaIHHcxsVPNPoeYeTZGRj3hq03Pl79kOmiBIwmGY0QKwUf1CQV4bjEgDkgja1nfDgtEADA2sBBsOKHAQQ+0XpBcXEiybqV32SO7HPYyokSR9vS2OfqHiF+KnBO47Y0aZMlAtkvDIT3o2fH36b6uG6N7YiQy27sN2KDhNuNluSKa9YVcJ6VgWcy63rFijNLdv//sZCpQ4LKBaQlrtw/6m/QDLFuoRCozBa9XrajLWnNKzdfCVi4Pc9oVvGxuAKVeDV5QGTbThCqFy4FCFYd40+GVOC6TRBShJWVu4in6rAbi4keBjzIUX+3CvXxqSLYUKHrmHzgKFSjhlxFNMybftba3sv4CoZ3CKIZuwlKwanxbm4qJspn8qNKyZDXqnwLXRHBxOSySb4DnxPNtvx9dY2M9X2eA7/ehzgLPY7G5bMtHZJEvt7mM45lWoTWH1ecXsQZClycuOUZAlVlYDSR9NWJI9KJY73O9Vy8JQ=
+    secure: HqoCwCEc0+yBfPEXLsunp95GYI7D5g4kh3BiG0oSxAlrHONsmuj24kor5qXoNbR3br0nNowQ/FNQpT6JLL0Tss9I7mY15BFgS0t/iytxl5LUIFETaSVhuZxtY4pP4gLUodPcKfBZymqtrttT5kvOOwlutEtsvyIFvpumUZJUKOFl+mVGHoWG4N+qyRcJLKtzKWPMN2BqQSi8T75CU4O9KrcgajdZclrI+20ZOclG+8HYul8i4wF3DsT/XzRzqWhXgV5eEUfar9vba5DmYdFo/bnSHV28qvnU64G+vatQs2RrrvHyqZVX+ygKyXl5iTyemXZSJ6Lob4IS5D+JFs8iahVmAQ1ZOy5gQWjKIhnmVm7UDMLPAbkffG+r/0zEBfQq6hOiCC+CH5l2us9CXaHRDOKRbfu4RkcLd2ZSv8lDxJdP9o0AQ3J83bo2a/3DpD4aCGF1xof67LfT1LfR9UpdPRBWP06kXAL/45vp6RHeVKUB8zXcd4JriYiDOqvgePrK67UgQ98gId6quwjMTKx+YUL82UVXHCwo8jwJoc/dn1jSSHdE2UZo/q8soh5JzHvhlB9OxMaX+XXTnQ9s4B8XzNkMHPvfXgZgW4F0ZZl6eN7/t7BqceWVE0MCyW0CumRBF+Sr0xq/R3eSvFVFtqUBj6+RB+cI2Ss4oJ4SV7V4yPc=
   app: moozcl
   on:
     repo: niles87/zoom_clone
