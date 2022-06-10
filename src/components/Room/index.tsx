@@ -3,6 +3,7 @@ import io from "socket.io-client";
 import Peer, { SignalData } from "simple-peer";
 import { VideoContainer, Video, Name } from "../Video";
 import { Container } from "../Layout";
+import { useParams } from "react-router-dom";
 // import { checkSpeaker } from "../../utils/media";
 
 type peerRef = {
@@ -46,7 +47,7 @@ export const Room = (props: any): JSX.Element => {
   const socketRef = useRef<any>();
   const userVideo = useRef<any>();
   const peersRef = useRef<Array<peerRef>>([]);
-  const roomID = props.match.params.id;
+  const { id: roomID } = useParams();
 
   useEffect(() => {
     socketRef.current = io(`/`);

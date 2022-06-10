@@ -34,7 +34,7 @@ export const Login = () => {
       });
 
       if (login) {
-        AuthService.login(login.id);
+        AuthService.login(login._id);
         window.location.assign("/home");
       }
     } catch (err) {

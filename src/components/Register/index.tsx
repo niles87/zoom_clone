@@ -96,6 +96,7 @@ export const Register = () => {
             name="firstName"
             placeholder="First Name*"
             onChange={handleInputChange}
+            value={formData.firstName}
             ref={firstRef}
             onMouseEnter={() => {
               if (firstRef.current) firstRef.current.focus();
@@ -110,6 +111,7 @@ export const Register = () => {
             type="text"
             name="lastName"
             placeholder="Last Name*"
+            value={formData.lastName}
             onChange={handleInputChange}
             ref={lastRef}
             onMouseEnter={() => {
@@ -125,6 +127,7 @@ export const Register = () => {
             type="text"
             name="username"
             placeholder="Display Name*"
+            value={formData.username}
             onChange={handleInputChange}
             ref={usernameRef}
             onMouseEnter={() => {
@@ -139,6 +142,7 @@ export const Register = () => {
           <Input
             type="email"
             name="email"
+            value={formData.email}
             placeholder="Email*"
             onChange={handleInputChange}
             ref={emailRef}
@@ -154,6 +158,7 @@ export const Register = () => {
           <Input
             type="password"
             name="password"
+            value={formData.password}
             placeholder="Password*"
             onChange={handleInputChange}
             ref={passwordRef}

@@ -6,10 +6,10 @@ class Api {
     this.baseUrl = "http://localhost:4000" || "";
   }
   async viewRooms(): Promise<Response> {
-    return await fetch(this.baseUrl + "/room");
+    return await fetch(this.baseUrl + "/");
   }
   async createRoom(owner: string): Promise<Response> {
-    return await fetch(this.baseUrl + "/room/createRoom", {
+    return await fetch(this.baseUrl + "/createRoom", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -18,7 +18,7 @@ class Api {
     });
   }
   async addMemberToRoom(id: string, member: existingUser): Promise<Response> {
-    return await fetch(`${this.baseUrl}/room/addMember/${id}`, {
+    return await fetch(`${this.baseUrl}/addMember/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +27,7 @@ class Api {
     });
   }
   async signup(newUser: newUser): Promise<Response> {
-    return await fetch(this.baseUrl + "/user/signup", {
+    return await fetch(this.baseUrl + "/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +36,7 @@ class Api {
     });
   }
   async login(user: existingUser): Promise<Response> {
-    return await fetch(this.baseUrl + "/user/login", {
+    return await fetch(this.baseUrl + "/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -45,17 +45,17 @@ class Api {
     });
   }
   async logout(id: string): Promise<Response> {
-    return await fetch(`${this.baseUrl}/user/logout/${id}`, {
+    return await fetch(`${this.baseUrl}/logout/${id}`, {
       method: "PUT",
     });
   }
   async getFriends(id: string): Promise<Response> {
-    return await fetch(`${this.baseUrl}/user/friends/${id}`, {
+    return await fetch(`${this.baseUrl}/friends/${id}`, {
       method: "GET",
     });
   }
   async getUserInfo(id: string): Promise<Response> {
-    return await fetch(`${this.baseUrl}/user/${id}`);
+    return await fetch(`${this.baseUrl}/${id}`);
   }
 }
 
